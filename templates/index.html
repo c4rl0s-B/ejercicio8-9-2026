@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>REGISTRO</h1>
+    <form 
+    class="formulario"
+    method = "POST"
+    action = "{{ url_for('registro') }}">
+
+        <div class="campo">
+            <label for="nombre">Nombre</label>
+            <input type="text" id="nombre" name="nombre" required/>
+        </div>
+        <div class="campo">
+            <label for="apellido">Apellido</label>
+            <input type="text" id="apellido" name="apellido" required>
+        </div>
+        <div class="boton">
+            <button class="registrar">Registrate</button>
+        </div>
+    </form>
+</body>
+</html>
