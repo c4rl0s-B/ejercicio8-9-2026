@@ -24,9 +24,14 @@ def registro():
             VALUES (%(nombre)s, %(apellido)s, %(edad)s);
         """
 
+        datos = {
+            "nombre": nombre,
+            "apellido": apellido,
+            "edad":edad
+        }
         mysql = connectToMySQL(NOMBRE_BD)
 
-        mysql.query_db(query)
+        mysql.query_db(query, datos)
 
         return redirect(url_for("lista"))
 
