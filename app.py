@@ -1,43 +1,46 @@
-from flask import (
-    Flask,
-    render_template,
-    request,
-    redirect,
-    session,
-    flash
-)
+from flask import Flask, render_template, request, redirect, session, url_for
 
-from flask_bcrypt import Bcrypt
+from mysqlconnection import connectToMySQL
+from usuarios import Usuario
 
 app = Flask(__name__)
 
-app.secret_key = "fjwefwein"
-bcrypt = Bcrypt(app)
+NOMBRE_BD = 'ejercicio_8_septiempbre'
 
-NOMBRE_BD = ''
-
-@app.route('/', methods =["GET"])
+@app.route('/')
 def inicio():
-    if request.methods == "POST"
+    return redirect(url_for("registro"))
 
-        Usuario = request.form["usuario"]
+@app.route('/registro', methods =["GET","POST"])
+def registro():
+    if request.method == "POST":
 
-        password = request.form["password"]
+        nombre = request.form["nombre"]
+        apellido = request.form["apellido"]
+        edad = request.form["edad"]
 
-        usuario = Usuario.get_by_email("correo")
-        
-        password_hash = bcrypt.generate_password_hash(password).decode("utf-8")
-
-        query = f"INSERT INTO usuarios (usuarios, password) VALUES('{usuario}','{password}')"
+        query = """
+            INSERT INTO usuarios (nombre, apellido, edad)
+            VALUES (%(nombre)s, %(apellido)s, %(edad)s);
+        """
 
         mysql = connectToMySQL(NOMBRE_BD)
 
         mysql.query_db(query)
 
-        return redirect(url_for("login"))
+        return redirect(url_for("lista"))
 
     return render_template("index.html")
+
 
 @app.route('/lista_registrados', methods =["GET"])
 def lista():
 
+    usuarios = Usuario.get_all()
+    print(usuarios)
+
+    return render_template( "lista_registrados.html", usuarios=usuarios )
+
+
+if __name__ == "__main__":
+    app.run(debug=True)
