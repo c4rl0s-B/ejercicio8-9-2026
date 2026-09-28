@@ -25,4 +25,37 @@ body{
     margin-top: 5px;
     color: #666;
 }
-.btn-crear
+.btn-crear{
+    text-decoration: none;
+    background-color: black;
+    color: white;
+    padding: 10px 18px;
+    border-radius: 6px;
+}
+
+.tabla-contenedor{
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+table{
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th,
+td{
+    padding: 14px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+th{
+    backgraund-color: #f0f0f0;
+}
+
+td a{
+    margin-right: 10px;
+    text-decoration: none;
+}
