@@ -46,6 +46,39 @@ def lista():
 
     return render_template( "lista_registrados.html", usuarios=usuarios )
 
+@app.route('/usuario/<int:user_id>')
+def usuario(user_id):
+    datos = {
+        "id": user_id
+    }
+    usuario = Usuario.get_by_id(datos)
+    return render_template('usuario.html', usuario=usuario)
 
+@app.route('/actualizar/<int:user_id>')
+def editar_html(user_id):
+    datos ={
+        'id': user_id
+    }
+    usuario = Usuario.get_by_id(datos)
+    return render_template('actualizar.html')
+
+@app.route('/Actualizar/<int:user_id>', methods=['POST'])
+def actualizar(user_id):
+    data = {
+        "id": user_id,
+        "nombre": request.form["nombre"],
+        "apellido":request.form["apellido"],
+        "edad":request.form["edad"]
+    }
+    Usuario.actualizar(data)
+    return redirect(f"/usuario/{user_id}")
+
+@app.route("/eliminar/<int:user_id>")
+def eliminar(user_id):
+    datos ={
+        "id":user_id
+    }
+    Usuario.eliminar(datos)
+    return redirect(url_for("lista"))
 if __name__ == "__main__":
     app.run(debug=True)
