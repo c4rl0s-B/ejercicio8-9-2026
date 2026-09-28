@@ -60,7 +60,7 @@ def editar_html(user_id):
         'id': user_id
     }
     usuario = Usuario.get_by_id(datos)
-    return render_template('actualizar.html')
+    return render_template('actualizar_usuario.html', usuario=usuario)
 
 @app.route('/Actualizar/<int:user_id>', methods=['POST'])
 def actualizar(user_id):
@@ -75,10 +75,14 @@ def actualizar(user_id):
 
 @app.route("/eliminar/<int:user_id>")
 def eliminar(user_id):
+
+    print("entrando a eliminar")
+    print("id",user_id)
     datos ={
         "id":user_id
     }
     Usuario.eliminar(datos)
     return redirect(url_for("lista"))
+
 if __name__ == "__main__":
     app.run(debug=True)

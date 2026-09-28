@@ -4,39 +4,46 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>lista</title>
-    <link rel="stylesheet" href="lista_registro.css">
+    <link rel="stylesheet" href="{{url_for('static', filename='lista_registro.css')}}">
 </head>
 <body>
-    <h1>lista de registro</h1>
-    <table>
-        <thead>
-            <tr>
-                <th>Nombre</th>
-                <th>Apellido</th>
-                <th>edad</th>
-                <th>acciones</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for usuario in usuarios %}
-                <tr>
-                    <td class="nombre_lector">
-                        {{ usuario.nombre }}
-                    </td>
-                    <td>
-                        {{ usuario.apellido }}
-                    </td>
-                    <td>
-                        {{usuario.edad}}
-                    </td>
-                    <td>
-                        <a href="{{url_for('usuario', user_id=usuario.id)}}">actualizar</a>
-                        <a href="{{url_for()}}">ver</a>
-                        <a href="">eliminar</a>
-                    </td>
-                </tr>
-            {% endfor %}
-        </tbody>
-    </table>
+    <main class=""contenedor>
+        <section class="encabezado">
+            <h1>lista de registro</h1>
+            <a href="{{url_for('registro')}}" class="brn-crear">Nuevo usuario</a>
+        </section>
+        <section class="tabla-contenedor">    
+            <table>
+                <thead>
+                    <tr>
+                        <th>Nombre</th>
+                        <th>Apellido</th>
+                        <th>edad</th>
+                        <th>acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for usuario in usuarios %}
+                        <tr>
+                            <td class="nombre_lector">
+                                {{ usuario.nombre }}
+                            </td>
+                            <td>
+                                {{ usuario.apellido }}
+                            </td>
+                            <td>
+                                {{usuario.edad}}
+                            </td>
+                            <td>
+                                <a href="{{url_for('editar_html', user_id=usuario.id)}}">actualizar</a>
+                                <a href="{{url_for('usuario', user_id=usuario.id)}}">ver</a>
+                                <a href="{{url_for('eliminar', user_id=usuario.id)}}">eliminar</a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </section>
+    </main> 
 </body>
 </html>
