@@ -55,8 +55,8 @@ header a:hover{
 main{
     min-height: calc(100vh - 93px);
 
-    displey: flex;
-    justyfy-content:center;
+    display: flex;
+    justify-content:center;
     align-items: center;
 
     padding: 40px 20px;
@@ -103,5 +103,23 @@ input:focus{
 
 button{
     margin-top: 5px;
-    padding: 13;
+    padding: 13px;
+    
+    border: none;
+    border-radius: 7px;
+
+    background-color: #222;
+    color:white;
+
+    font-size: 16px;
+    font-weight: bold;
+
+    cursor: pointer;
+
+    transition: 0.2s;
+}
+
+button:hover{
+    background-color: #444;
+    transform: translateY(-1px);
 }
