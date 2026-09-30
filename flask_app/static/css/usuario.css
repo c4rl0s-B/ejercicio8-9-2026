@@ -1,0 +1,18 @@
+header a{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 42px;
+    height: 42px;
+    text-decoration: none;
+    font-size: 22px;
+    color: white;
+    background-color: #222;
+    border-radius: 8px;
+    transition: 0.2s;
+}
+
+header a:hover{
+    background-color: #444;
+    transform: translateX(-2px);
+}

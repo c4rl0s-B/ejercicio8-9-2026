@@ -1,9 +1,9 @@
-from flask import Flask, render_template, request, redirect, session, url_for
+from flask_app import app #Importamos la app
 
-from mysqlconnection import connectToMySQL
-from usuarios import Usuario
+from flask import render_template, redirect, request, url_for
+from flask_app.models.usuario import Usuario
 
-app = Flask(__name__)
+
 
 NOMBRE_BD = 'ejercicio_8_septiempbre'
 
@@ -15,23 +15,13 @@ def inicio():
 def registro():
     if request.method == "POST":
 
-        nombre = request.form["nombre"]
-        apellido = request.form["apellido"]
-        edad = request.form["edad"]
-
-        query = """
-            INSERT INTO usuarios (nombre, apellido, edad)
-            VALUES (%(nombre)s, %(apellido)s, %(edad)s);
-        """
-
         datos = {
-            "nombre": nombre,
-            "apellido": apellido,
-            "edad":edad
+            "nombre": request.form["nombre"],
+            "apellido": request.form["apellido"],
+            "edad": request.form["edad"]
         }
-        mysql = connectToMySQL(NOMBRE_BD)
 
-        mysql.query_db(query, datos)
+        Usuario.save(datos)
 
         return redirect(url_for("lista"))
 
@@ -71,7 +61,7 @@ def actualizar(user_id):
         "edad":request.form["edad"]
     }
     Usuario.actualizar(data)
-    return redirect(f"/usuario/{user_id}")
+    return redirect(url_for("lista"))
 
 @app.route("/eliminar/<int:user_id>")
 def eliminar(user_id):
@@ -84,5 +74,3 @@ def eliminar(user_id):
     Usuario.eliminar(datos)
     return redirect(url_for("lista"))
 
-if __name__ == "__main__":
-    app.run(debug=True)

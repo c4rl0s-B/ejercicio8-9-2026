@@ -1,4 +1,4 @@
-from mysqlconnection import connectToMySQL
+from flask_app.config.mysqlconnection import connectToMySQL
 NOMBRE_BD = 'ejercicio_8_septiempbre'
 
 class Usuario:
@@ -47,7 +47,7 @@ class Usuario:
             UPDATE usuarios
             SET nombre = %(nombre)s,
                 apellido = %(apellido)s,
-                eded = %(edad)s
+                edad = %(edad)s
             WHERE id = %(id)s;
             """
         return connectToMySQL(NOMBRE_BD).query_db(query, data)
@@ -59,3 +59,15 @@ class Usuario:
             WHERE id = %(id)s;
         """
         return connectToMySQL(NOMBRE_BD).query_db(query,data)
+
+    @classmethod
+    def save(cls,data):
+
+        
+        query = """
+            INSERT INTO usuarios (nombre, apellido, edad)
+            VALUES (%(nombre)s, %(apellido)s, %(edad)s);
+        """
+
+        
+        return connectToMySQL(NOMBRE_BD).query_db(query, data)
